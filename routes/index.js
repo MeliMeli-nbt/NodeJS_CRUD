@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 var dbConnect = require('../config/connect');
 const { render } = require('../app');
+const { authPage } = require('../middleware/basicAuth');
 
 router.get('/', function(req, res, next) {
-  res.render('index');
+
 });
 
 // GET home page
-router.get('/home', function(req, res) {
+router.get('/home',function(req, res) {
   dbConnect.query("SELECT * FROM NodeJS_CRUD.employees;", function(err, data) {
     if (err) throw err;
     res.render('home', { data: data });
